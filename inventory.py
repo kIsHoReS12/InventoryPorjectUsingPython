@@ -13,7 +13,6 @@ class Inventory:
                     self.name = stock["name"]
 
     def items_sell(self):
-        if self.stock >=self.qt: 
             with open('stock.json', 'w') as file:
                 stock_data = json.load(file)
                 for stock in stock_data:
@@ -21,9 +20,11 @@ class Inventory:
                         stock["stock"] -= self.qt
                 json.dump(stock_data,file,indent=4)
                 file.close()
-
-            
-
-
-
     
+    def display_items(self):
+        with open("stock.json","r") as file:
+            display_data = json.load(file)
+            for data in display_data:
+                print(f"Name: {data["name"]} * AvaiableQt: {data["qt"]} * Price/Qt: {data["price"]}")
+
+
