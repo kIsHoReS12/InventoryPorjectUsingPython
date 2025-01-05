@@ -1,17 +1,17 @@
-import inventory
+from inventory import Inventory
 import json 
 
-class Market(inventory):
+class Market(Inventory):
     def __init__(self):
         self.Confirm= 0
         self.CurrentOrders = []
     
     def DisplayProduct(self):
-        inv = inventory()
+        inv = Inventory()
         inv.display_items()
     
     def CheckProduct(self,item_id,item_qt):
-        inv = inventory(item_id,item_qt)
+        inv = Inventory(item_id,item_qt)
         if (inv.id>=1 and inv.id<=15):
             if (inv.stock >= inv.qt):
                 self.Confirm = 1
@@ -28,8 +28,8 @@ class Market(inventory):
     
     def SellProduct(self,item_id,item_qt):
         #if self.check == 1:
-            inv = inventory(item_id,item_qt)
-            inv.item_sell(item_id,item_qt)
+            inv = Inventory(item_id,item_qt)
+            inv.items_sell(item_id,item_qt)
 
     
     def BillDisplay(self):
@@ -40,9 +40,13 @@ class Market(inventory):
             print(f"{items[0]}\t -  {items[1]}\t  -  {items[1]*items[2]}")
             totalprice+=items[1]*items[2]
         print(f"\t\tTOTAL PRICE = RS {totalprice}")
-        with open("proft.json","w") as file:
-            profit = json.load(file)
-            profit["profit"] += totalprice
+        with open("profit.json","r+") as file:
+            profitval = json.load(file)
+            for profit in profitval:
+                profit["profit"] += totalprice
+            file.seek(0)
+            json.dump(profitval,file,indent=4)
+
         print("Thank you, Please visit again !")
         
-        
+    
