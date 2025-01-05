@@ -1,23 +1,22 @@
-import market
+from market import Market
 
 if __name__ == "__main__":
-    Market = market()
+    MarketObj = Market()
     Continue = 1
     Cart = []
     while Continue:
         if Continue == 1:
-            Market.DisplayProduct()
+            MarketObj.DisplayProduct()
             Continue+=1
-            print("\n\n")
+            print("\n")
         if Continue == 2:
-            print("1. Add/Remove from Cart\t2. Proceed to Shipment")
-            option = input()
+            option = int(input("1. Add/Remove from Cart\t2. Proceed to Shipment\n"))
             if option == 1:
                 print("Enter the Product id,Product Qt: ")
                 var = input()
-                prod = list(map(int,var.split(',')))
-                Market.CheckProduct(prod[0],prod[1])
-                Cart.append[prod]
+                prodct = list(map(int,var.split(',')))
+                MarketObj.CheckProduct(prodct[0],prodct[1])
+                Cart.append(prodct)
                 print("Item Successfully added to the cart\n")
             elif option == 2:
                 if len(Cart)!=0: 
@@ -27,5 +26,7 @@ if __name__ == "__main__":
             else:
                 print("Please input Valid option\n")
     for products in Cart:
-        Market.SellProduct[products[0],products[1]]
-    Market.BillDisplay()
+        MarketObj.SellProduct(products[0],products[1])
+
+    
+    MarketObj.BillDisplay()
